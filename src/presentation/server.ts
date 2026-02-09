@@ -1,11 +1,15 @@
 import express, { Router } from "express"
 import path from "path";
+import { fileURLToPath } from "url";
 
 interface ServerOptions {
   port: number;
   routes: Router;
   public_path?: string;
 }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class Server {
 

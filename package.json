@@ -1,0 +1,35 @@
+{
+  "name": "user-store",
+  "version": "1.0.0",
+  "description": "A user store app to learn authentication and authorization, token validation, route protection and pagination",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarloDiazPortilla/user-store.git"
+  },
+  "keywords": [],
+  "author": "Carlo Diaz Portilla",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/CarloDiazPortilla/user-store/issues"
+  },
+  "homepage": "https://github.com/CarloDiazPortilla/user-store#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.2",
+    "rimraf": "^6.1.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "env-var": "^7.5.0",
+    "express": "^5.2.1"
+  }
+}

@@ -1,3 +1,4 @@
+import { bcryptAdapter } from "../../config/bcrypt.adapter";
 import { UserModel } from "../../database";
 import type { RegisterUserDto } from "../../domain/dtos/auth/register-user.dto";
 import { UserEntity } from "../../domain/entities/user.entity";
@@ -13,7 +14,8 @@ export class AuthService {
     if (existsUser) throw CustomError.badRequest("Email already exists");
 
     try {
-      const user = new UserModel(registerUserDto);
+      const hashedPassword = bcryptAdapter.hash(registerUserDto.password);
+      const user = new UserModel({ ...registerUserDto, password: hashedPassword });
       await user.save();
 
       // encrypt password

@@ -1,4 +1,5 @@
 import { bcryptAdapter } from "../../config/bcrypt.adapter";
+import { jwtAdapter } from "../../config/jwt.adapter";
 import { UserModel } from "../../database";
 import type { LoginUserDto } from "../../domain/dtos/auth/login-user.dto";
 import type { RegisterUserDto } from "../../domain/dtos/auth/register-user.dto";
@@ -49,10 +50,12 @@ export class AuthService {
     const { password, ...loggedUser } = UserEntity.fromObject(user);
 
     // generate token
+    const token = await jwtAdapter.sign({ user: user.id });
+    if (!token) throw CustomError.internalServer("Error creating jwt");
 
     return {
       user: loggedUser,
-      token: "ABC"
+      token: token
     }
   }
 }

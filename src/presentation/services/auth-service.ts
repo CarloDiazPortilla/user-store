@@ -23,13 +23,16 @@ export class AuthService {
 
       // generate JWT to authenticate user
 
+      const token = await jwtAdapter.sign({ id: user.id }, "15m");
+      if (!token) throw CustomError.internalServer("Error creating jwt");
+
       // send confirmation email
 
       const { password, ...userEntity } = UserEntity.fromObject(user);
 
       return {
         user: userEntity,
-        token: "ABC"
+        token: token
       };
     } catch (error) {
       throw CustomError.internalServer(`${error}`)

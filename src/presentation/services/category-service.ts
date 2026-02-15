@@ -1,5 +1,6 @@
 import { CategoryModel } from "../../database/mongo/models/category.model";
 import type { CreateCategoryDto } from "../../domain/dtos/category/create-category.dto";
+import { CategoryEntity } from "../../domain/entities/category.entity";
 import type { UserEntity } from "../../domain/entities/user.entity";
 import { CustomError } from "../../domain/errors/custom.error";
 
@@ -21,17 +22,19 @@ export class CategoryService {
 
       await newCategory.save();
 
-      return {
-        id: newCategory.id,
-        name: newCategory.name,
-        available: newCategory.available
-      }
+      return CategoryEntity.fromObject(newCategory);
     } catch (error) {
       throw CustomError.internalServer("Error creating new category");
     }
   }
 
   public async getCategories() {
+    try {
+      const categories = await CategoryModel.find();
 
+      return categories.map(category => CategoryEntity.fromObject(category));
+    } catch (error) {
+      throw CustomError.internalServer("Error retrieving categories");
+    }
   }
 }

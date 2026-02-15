@@ -60,7 +60,7 @@ export class AuthService {
     const { password, ...loggedUser } = UserEntity.fromObject(user);
 
     // generate token
-    const token = await jwtAdapter.sign({ user: user.id });
+    const token = await jwtAdapter.sign({ id: user.id });
     if (!token) throw CustomError.internalServer("Error creating jwt");
 
     return {

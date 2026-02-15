@@ -14,11 +14,11 @@ export const jwtAdapter = {
       })
     })
   },
-  verify: (token: string) => {
+  verify: <T>(token: string): Promise<T | null> => {
     return new Promise((resolve) => {
       jwt.verify(token, JWT_SEED, (error, decoded) => {
         if (error) return resolve(null);
-        return resolve(decoded);
+        return resolve(decoded as T);
       })
     })
   }
